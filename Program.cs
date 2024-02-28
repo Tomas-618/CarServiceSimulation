@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace CarServiceSimulation
+﻿namespace CarServiceSimulation
 {
     internal class Program
     {
