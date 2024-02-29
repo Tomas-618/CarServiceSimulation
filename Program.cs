@@ -2,6 +2,11 @@
 {
     internal class Program
     {
-        private static void Main() { }
+        private static void Main()
+        {
+            Town town = new Town();
+
+            town.Simulate();
+        }
     }
 }
