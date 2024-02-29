@@ -46,8 +46,11 @@ namespace CarServiceSimulation
 
             bool isServeRefused = false;
 
-            while (_storage.TryGetDetail(ConsoleUtils.GetNumber("Detail index: "), out newDetail) == false && isServeRefused == false)
-                isServeRefused = ConsoleUtils.TryAnswer($"Do you want to try to get another {nameof(newDetail)}? (y/n)");
+            while (_storage.TryGetDetail(ConsoleUtils.GetNumber("Detail index: ") - 1, out newDetail) == false && isServeRefused == false)
+            {
+                Console.WriteLine($"\nCan't find this {nameof(Detail).ToLower()}");
+                isServeRefused = ConsoleUtils.TryAnswer($"Do you want to try to get another {nameof(Detail).ToLower()}? (y/n)");
+            }
 
             if (newDetail == null)
             {

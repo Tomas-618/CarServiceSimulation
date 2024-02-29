@@ -10,7 +10,7 @@ namespace CarServiceSimulation
 
             Console.Write(text);
 
-            while (int.TryParse(text, out number) == false)
+            while (int.TryParse(Console.ReadLine(), out number) == false)
             {
                 Console.WriteLine($"\nCan't convert to {nameof(Int32)}. Try again");
                 Console.Write(text);

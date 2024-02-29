@@ -10,11 +10,7 @@ namespace CarServiceSimulation
 
         public Town()
         {
-            List<Func<Detail>> details = CreateDetails();
-
-            details.ForEach(detail => detail?.Invoke().Break());
-
-            _container = new Container(details);
+            _container = new Container(CreateDetails(false));
             _service = new AutoService(CreateStorage());
         }
 
@@ -35,7 +31,7 @@ namespace CarServiceSimulation
 
         private Storage CreateStorage()
         {
-            Container container = new Container(CreateDetails());
+            Container container = new Container(CreateDetails(true));
 
             int[] tempDetailsCounts = { 8, 10 };
 
@@ -50,12 +46,12 @@ namespace CarServiceSimulation
             return new Storage(detailsCounts, container);
         }
 
-        private List<Func<Detail>> CreateDetails()
+        private List<Func<Detail>> CreateDetails(bool isBroken)
         {
             return new List<Func<Detail>>
             {
-                () => new CarBody(2180, true),
-                () => new Suspension(327, true)
+                () => new CarBody(2180, isBroken),
+                () => new Suspension(327, isBroken)
             };
         }
     }
