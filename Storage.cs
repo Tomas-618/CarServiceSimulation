@@ -17,8 +17,6 @@ namespace CarServiceSimulation
             _container = container ?? throw new ArgumentNullException(nameof(container));
         }
 
-        public IReadOnlyDictionary<Type, int> Details => _detailts;
-
         public bool TryGetDetail(in int detailIndex, out IReadOnlyDetail detail)
         {
             detail = null;
