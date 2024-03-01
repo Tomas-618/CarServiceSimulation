@@ -2,7 +2,7 @@
 
 namespace CarServiceSimulation
 {
-    public class AutoService
+    public class AutoService : IReadOnlyAutoService
     {
         private readonly Storage _storage;
 
@@ -24,25 +24,56 @@ namespace CarServiceSimulation
             private set => _money = value <= 0 ? 0 : value;
         }
 
-        public bool CanWork => Money > 0;
+        public bool CanWork => Money > 0 && _storage.Capacity > 0;
 
-        public void Work(Car brokenCar, in int fineCost)
+        public void Work(Car car, in int fineCost)
         {
+            if (car == null)
+                throw new ArgumentNullException(nameof(car));
+
             if (CanWork == false)
+            {
+                Console.WriteLine($"Sorry, {nameof(AutoService)} can't work");
+
                 return;
+            }
 
-            if (brokenCar == null)
-                throw new ArgumentNullException(nameof(brokenCar));
+            if (car.IsFixed)
+            {
+                Console.WriteLine($"{nameof(Car)} is already fixed!");
 
-            if (brokenCar.IsFixed)
                 return;
-
-            IReadOnlyDetail newDetail;
+            }
 
             int minPriceOfWork = 2;
             int maxPriceOfWork = 4;
 
             int priceOfWork = Utils.GetRandomNumber(minPriceOfWork, maxPriceOfWork + 1);
+
+            if (TryGetDetail(fineCost, out IReadOnlyDetail newDetail) == false)
+                return;
+
+            if (car.TryReplaceDetail(newDetail) && car.IsFixed)
+            {
+                Money += newDetail.Cost;
+                Console.Write("Car was succesfully fixed! Your prize: ");
+            }
+            else
+            {
+                Money -= newDetail.Cost;
+                Console.Write("You failed to fix the car! You've lost: ");
+            }
+
+            Money += priceOfWork;
+
+            Console.WriteLine(newDetail.Cost);
+            Console.WriteLine($"You've get {priceOfWork}, as price of work");
+        }
+
+        private bool TryGetDetail(in int fineCost, out IReadOnlyDetail newDetail)
+        {
+            if (fineCost <= 0)
+                throw new ArgumentOutOfRangeException(fineCost.ToString());
 
             bool isServeRefused = false;
 
@@ -55,11 +86,15 @@ namespace CarServiceSimulation
             if (newDetail == null)
             {
                 Money -= fineCost;
+                Console.WriteLine($"You have been fined for not serve your client || Fine cost: {fineCost}");
 
-                return;
+                return false;
             }
 
-            Money += (brokenCar.TryReplaceDetail(newDetail) && brokenCar.IsFixed ? newDetail.Cost : -newDetail.Cost) + priceOfWork;
+            return true;
         }
+
+        public override string ToString() =>
+            $"{_storage}\n{nameof(Money)}: {Money}";
     }
 }

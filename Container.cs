@@ -1,25 +1,41 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace CarServiceSimulation
 {
     public class Container
     {
+        private readonly IReadOnlyList<Func<IReadOnlyDetail>> _details;
+
         public Container(IReadOnlyList<Func<IReadOnlyDetail>> details) =>
-            Details = details ?? throw new ArgumentNullException(nameof(details));
+            _details = details ?? throw new ArgumentNullException(nameof(details));
 
-        public IReadOnlyList<Func<IReadOnlyDetail>> Details { get; }
+        public int Capacity => _details.Count;
 
-        public IReadOnlyList<Type> DetailsTypes => Details
-            .Select(detail => detail?.Invoke().GetType())
-            .ToList();
+        public bool IsIndexInRange(in int index) =>
+            _details.IsIndexInRange(index);
+
+        public IReadOnlyDetail GetDetailByIndex(in int index) =>
+            _details[index]?.Invoke();
+
+        public IReadOnlyDetail GetDetailByType(Type type)
+        {
+            List<Type> detailsTypes = new List<Type>();
+
+            for (int i = 0; i < Capacity; i++)
+                detailsTypes.Add(GetDetailTypeByIndex(i));
+
+            return GetDetailByIndex(detailsTypes.IndexOf(type ?? throw new ArgumentNullException(nameof(type))));
+        }
+
+        public Type GetDetailTypeByIndex(in int index) =>
+            GetDetailByIndex(index).GetType();
 
         public IReadOnlyDetail GetRandomDetail()
         {
-            int index = Utils.GetRandomNumber(Details.Count);
+            int index = Utils.GetRandomNumber(_details.Count);
 
-            return Details[index]?.Invoke();
+            return _details[index]?.Invoke();
         }
     }
 }

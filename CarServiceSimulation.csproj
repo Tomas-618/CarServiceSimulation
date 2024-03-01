@@ -49,6 +49,8 @@
     <Compile Include="ConsoleUtils.cs" />
     <Compile Include="Detail.cs" />
     <Compile Include="EnumerableExtension.cs" />
+    <Compile Include="IReadOnlyAutoService.cs" />
+    <Compile Include="IReadOnlyCar.cs" />
     <Compile Include="IReadOnlyDetail.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -56,6 +58,7 @@
     <Compile Include="Container.cs" />
     <Compile Include="Suspension.cs" />
     <Compile Include="Town.cs" />
+    <Compile Include="UI.cs" />
     <Compile Include="Utils.cs" />
   </ItemGroup>
   <ItemGroup>

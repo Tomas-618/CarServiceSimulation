@@ -2,7 +2,7 @@
 
 namespace CarServiceSimulation
 {
-    public class Car
+    public class Car : IReadOnlyCar
     {
         private IReadOnlyDetail _detailToReplace;
 
@@ -24,6 +24,12 @@ namespace CarServiceSimulation
             }
 
             return false;
+        }
+
+        public override string ToString()
+        {
+            return $"Detail to replace: {_detailToReplace.Name}: Cost: {_detailToReplace.Cost} " +
+                $"|| Is detail fixed: {_detailToReplace.IsFixed}\nIs car fixed: {IsFixed}";
         }
     }
 }

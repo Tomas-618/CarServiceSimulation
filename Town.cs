@@ -26,6 +26,7 @@ namespace CarServiceSimulation
 
                 _service.Work(car, fineCost);
                 isContinue = ConsoleUtils.TryAnswer($"Do you want to continue auto service working? (y/n)");
+                Console.Clear();
             }
         }
 
@@ -33,22 +34,22 @@ namespace CarServiceSimulation
         {
             Container container = new Container(CreateDetails(true));
 
-            int[] tempDetailsCounts = { 8, 10 };
+            int[] detailsCounts = { 8, 10 };
 
-            if (container.Details.Count != tempDetailsCounts.Length)
+            if (container.Capacity != detailsCounts.Length)
                 throw new InvalidOperationException();
 
-            Dictionary<Type, int> detailsCounts = new Dictionary<Type, int>();
+            Dictionary<Type, int> details = new Dictionary<Type, int>();
 
-            for (int i = 0; i < container.Details.Count; i++)
-                detailsCounts.Add(container.DetailsTypes[i], tempDetailsCounts[i]);
+            for (int i = 0; i < container.Capacity; i++)
+                details.Add(container.GetDetailTypeByIndex(i), detailsCounts[i]);
 
-            return new Storage(detailsCounts, container);
+            return new Storage(details, container);
         }
 
-        private List<Func<Detail>> CreateDetails(bool isBroken)
+        private List<Func<IReadOnlyDetail>> CreateDetails(bool isBroken)
         {
-            return new List<Func<Detail>>
+            return new List<Func<IReadOnlyDetail>>
             {
                 () => new CarBody(2180, isBroken),
                 () => new Suspension(327, isBroken)

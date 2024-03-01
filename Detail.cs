@@ -4,14 +4,17 @@ namespace CarServiceSimulation
 {
     public abstract class Detail : IReadOnlyDetail
     {
-        protected Detail(in int cost, in bool isFixed)
+        protected Detail(string name, in int cost, in bool isFixed)
         {
             if (cost <= 0)
                 throw new ArgumentOutOfRangeException(cost.ToString());
 
+            Name = name ?? throw new ArgumentNullException(nameof(name));
             Cost = cost;
             IsFixed = isFixed;
         }
+
+        public string Name { get; }
         
         public int Cost { get; }
 
