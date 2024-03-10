@@ -22,5 +22,8 @@ namespace CarServiceSimulation
 
         public void Break() =>
             IsFixed = false;
+
+        public override string ToString() =>
+            $"{Name}: Cost: {Cost} || Is fixed: {IsFixed}";
     }
 }

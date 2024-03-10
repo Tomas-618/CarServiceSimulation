@@ -4,9 +4,9 @@
     {
         private static void Main()
         {
-            Town town = new Town();
+            AutoServiceSimulation autoServiceSimulation = new AutoServiceSimulation();
 
-            town.Simulate();
+            autoServiceSimulation.Process();
         }
     }
 }
