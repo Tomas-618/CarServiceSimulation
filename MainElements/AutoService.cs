@@ -58,7 +58,9 @@ namespace CarServiceSimulation
             }
             else
             {
+                _storage.AddDetail(newDetail);
                 ReduceMoney(newDetail.Cost);
+
                 Console.Write("You failed to fix the car! You've lost: ");
             }
 

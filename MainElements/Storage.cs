@@ -6,7 +6,8 @@ namespace CarServiceSimulation
     public class Storage
     {
         private readonly Dictionary<int, Type> _detailsTypesMap;
-        private readonly List<IReadOnlyDetail> _details;
+
+        private List<IReadOnlyDetail> _details;
 
         public Storage(Dictionary<int, Type> detailsTypesMap, List<IReadOnlyDetail> details)
         {
@@ -24,6 +25,20 @@ namespace CarServiceSimulation
                 return false;
 
             return _details.TryRemoveValueByCondition(currentDetail => currentDetail.GetType() == detailType, out detail);
+        }
+
+        public void AddDetail(IReadOnlyDetail newDetail)
+        {
+            int index = _details.FindIndex(detail => detail.GetType() == newDetail.GetType());
+
+            if (index < 0)
+            {
+                _details.Add(newDetail);
+
+                return;
+            }
+
+            _details.Insert(index, newDetail);
         }
 
         public override string ToString()
