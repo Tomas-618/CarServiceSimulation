@@ -6,8 +6,7 @@ namespace CarServiceSimulation
     public class Storage
     {
         private readonly Dictionary<int, Type> _detailsTypesMap;
-
-        private List<IReadOnlyDetail> _details;
+        private readonly List<IReadOnlyDetail> _details;
 
         public Storage(Dictionary<int, Type> detailsTypesMap, List<IReadOnlyDetail> details)
         {
