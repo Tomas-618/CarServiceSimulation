@@ -21,7 +21,7 @@ namespace CarServiceSimulation
             Type[] detailsTypes = _detailsFactory.Types
                 .ToArray();
 
-            int[] detailsCounts = { 10, 8 };
+            int[] detailsCounts = { 4, 10, 11, 3, 8, 6 };
 
             return new Storage(_detailsTypesMapFactory.CreateDetailsTypesMap(detailsTypes), _detailsFactory.Create(detailsCounts));
         }

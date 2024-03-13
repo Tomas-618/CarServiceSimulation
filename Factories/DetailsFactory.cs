@@ -57,8 +57,12 @@ namespace CarServiceSimulation
         {
             return new Dictionary<Type, Func<IReadOnlyDetail>>
             {
-                [typeof(CarBody)] = () => new CarBody(120, isFixed),
-                [typeof(Suspension)] = () => new Suspension(30, isFixed),
+                [typeof(Brake)] = () => new Brake(70, isFixed),
+                [typeof(CarBody)] = () => new CarBody(2400, isFixed),
+                [typeof(Engine)] = () => new Engine(1000, isFixed),
+                [typeof(Steering)] = () => new Steering(1200, isFixed),
+                [typeof(Suspension)] = () => new Suspension(750, isFixed),
+                [typeof(Transmission)] = () => new Transmission(2500, isFixed)
             };
         }
     }

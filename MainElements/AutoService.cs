@@ -12,8 +12,8 @@ namespace CarServiceSimulation
         {
             _storage = storage ?? throw new ArgumentNullException(nameof(storage));
 
-            int minValue = 3000;
-            int maxValue = 5000;
+            int minValue = 8000;
+            int maxValue = 15000;
 
             _money = Utils.GetRandomNumber(minValue, maxValue + 1);
         }
@@ -99,16 +99,16 @@ namespace CarServiceSimulation
 
         private int GetRandomPriceOfWork()
         {
-            int minPriceOfWork = 2;
-            int maxPriceOfWork = 4;
+            int minPriceOfWork = 20;
+            int maxPriceOfWork = 40;
 
             return Utils.GetRandomNumber(minPriceOfWork, maxPriceOfWork + 1);
         }
 
         private int GetRandomFineCost()
         {
-            int minFineCost = 100;
-            int maxFineCost = 300;
+            int minFineCost = 1500;
+            int maxFineCost = 3000;
 
             return Utils.GetRandomNumber(minFineCost, maxFineCost + 1);
         }
